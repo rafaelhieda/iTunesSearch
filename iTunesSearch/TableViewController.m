@@ -13,8 +13,11 @@
 
 @interface TableViewController () {
     NSArray *midias;
+    NSString *tipoMidia;
+    iTunesManager *itunes;
+    
 }
--(NSString *) timeFormatter;
+
 @end
 
 @implementation TableViewController
@@ -23,11 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    tipoMidia = @"";
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
     
-    iTunesManager *itunes = [iTunesManager sharedInstance];
+    itunes = [iTunesManager sharedInstance];
     midias = [itunes buscarMidias:@"Apple"];
     
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
@@ -67,7 +70,18 @@
     return 70;
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [_textField resignFirstResponder];
+}
 
 
 
+- (IBAction)searchButton:(id)sender {
+    tipoMidia = [[self textField]text];
+    NSLog(@"texto; %@", [[self textField]text]);
+    midias = [itunes buscarMidias:tipoMidia];
+    [_tableview reloadData];
+    
+}
 @end
