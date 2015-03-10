@@ -6,7 +6,7 @@
 ###2) Adicione no cabeçalho da tabela um campo de texto e um botão para que o usuário escolha o termo a ser procurado.
 ###3) Use os recursos de internacionalização para permitir que o botão exiba a palavra Buscar, Search e Recherche para os idiomas Português, Inglês e Francês
 
-##Desafio Prata
+##Desafio Pratakljdfkldmnldknvddklzmnkz;
 
 ###1) Busque outros tipos de mídias (música, podcast, ebook);
 ###2) Mostre o resultado separado em sessões dentro da UITableView, as quais são identificadas pelo tipo da mídia.
