@@ -14,7 +14,7 @@
 @interface TableViewController () {
     NSArray *midias;
 }
-
+-(NSString *) timeFormatter;
 @end
 
 @implementation TableViewController
@@ -56,13 +56,18 @@
     
     [celula.nome setText:filme.nome];
     [celula.tipo setText:@"Filme"];
+    [celula.pais setText: filme.pais];
+    [celula.duracao setText:[NSString stringWithFormat:@"%@", filme.duracao]];
     
+
     return celula;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
 }
+
+
 
 
 @end
