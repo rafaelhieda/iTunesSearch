@@ -26,14 +26,14 @@
                         <color key="textColor" red="0.89928382640000004" green="0.12798005339999999" blue="0.001599563868" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8e-O1-5fl">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Moeda" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8e-O1-5fl">
                         <rect key="frame" x="205" y="63" width="65" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.86274509799999999" green="0.0" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IS-TH-ZCF">
-                        <rect key="frame" x="8" y="63" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Pais" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IS-TH-ZCF">
+                        <rect key="frame" x="15" y="63" width="54" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                         <color key="textColor" red="0.86274509799999999" green="0.0" blue="0.019607843140000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -41,11 +41,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="6Z5-yj-wnl" secondAttribute="trailing" id="20H-3b-RZ8"/>
+                    <constraint firstItem="3IS-TH-ZCF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7ok-fc-7vz"/>
                     <constraint firstItem="6Z5-yj-wnl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="96O-aR-ps1"/>
-                    <constraint firstAttribute="centerX" secondItem="3IS-TH-ZCF" secondAttribute="centerX" constant="121" id="CPI-Ob-0PG"/>
+                    <constraint firstItem="3IS-TH-ZCF" firstAttribute="top" secondItem="6Z5-yj-wnl" secondAttribute="bottom" constant="8" id="CuM-dQ-pCi"/>
+                    <constraint firstItem="d8e-O1-5fl" firstAttribute="leading" secondItem="3IS-TH-ZCF" secondAttribute="trailing" constant="136" id="FDM-IU-fFj"/>
                     <constraint firstItem="UIA-JU-luV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Q1V-YW-Wh5"/>
                     <constraint firstAttribute="centerX" secondItem="d8e-O1-5fl" secondAttribute="centerX" constant="-87.5" id="Ri0-T8-CbZ"/>
-                    <constraint firstAttribute="centerY" secondItem="3IS-TH-ZCF" secondAttribute="centerY" constant="-22.5" id="YGR-j9-7gg"/>
                     <constraint firstItem="UIA-JU-luV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="YdC-rX-aV6"/>
                     <constraint firstAttribute="trailingMargin" secondItem="UIA-JU-luV" secondAttribute="trailing" id="cTH-Nq-14q"/>
                     <constraint firstAttribute="centerY" secondItem="d8e-O1-5fl" secondAttribute="centerY" constant="-22.5" id="q2L-p6-E42"/>

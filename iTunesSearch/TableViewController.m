@@ -10,31 +10,60 @@
 #import "TableViewCell.h"
 #import "iTunesManager.h"
 #import "Entidades/Filme.h"
+#import "Data.h"
 
 @interface TableViewController () {
     NSArray *midias;
+    NSString *termo;
     NSString *tipoMidia;
     iTunesManager *itunes;
+
     
 }
 
+
 @end
+
+
 
 @implementation TableViewController
 
-//
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    tipoMidia = @"";
+    termo = @"Apple";
+    tipoMidia = @"all";
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
-    
+     NSLog(@" %@ %@", termo, tipoMidia);
     itunes = [iTunesManager sharedInstance];
-    midias = [itunes buscarMidias:@"Apple"];
+    //midias = [itunes buscarMidias:@"Apple"];
+    midias = [itunes buscarMidias:termo midia:tipoMidia];
+   
     
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
-    self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableview.bounds.size.width, 15.f)];
+  //self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, self.tableview.bounds.size.width, 60.0f)];
+    
+    
+
+    
+    
+    
+    
+    
+    /* HEADER VIEW */
+    
+//    UITextField *teste = [[UITextField alloc]initWithFrame:CGRectMake(10.0f, 10.0f, 200.0f, 25.0f)];
+//    [teste setBackgroundColor:[UIColor whiteColor]];
+    
+//    [_tableview.tableHeaderView setBackgroundColor:[[UIColor redColor]colorWithAlphaComponent:0.5f]];
+//    _tableview.tableHeaderView.layer.borderColor=[UIColor blackColor].CGColor;
+//    _tableview.tableHeaderView.layer.borderWidth=1.0f;
+//    
+//    [_tableview addSubview: teste];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,17 +82,34 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TableViewCell *celula = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-    Filme *filme = [midias objectAtIndex:indexPath.row];
+    //Implementação de aula
+     
+//    TableViewCell *celula = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
+//    
+//    Filme *filme = [midias objectAtIndex:indexPath.row];
+//    
+//    [celula.nome setText:filme.nome];
+//    [celula.tipo setText:@"Filme"];
+//    [celula.pais setText: filme.pais];
+//    //[celula.duracao setText:[NSString stringWithFormat:@"$: %@", filme.duracao]];
+//    [celula.duracao setText: [NSString stringWithFormat:@"preco: %@", filme.preco]];
+//
+//    return celula;
+//     
     
-    [celula.nome setText:filme.nome];
-    [celula.tipo setText:@"Filme"];
-    [celula.pais setText: filme.pais];
-    [celula.duracao setText:[NSString stringWithFormat:@"%@", filme.duracao]];
+    //Minha implementação
+    TableViewCell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-
-    return celula;
+    Data *data = [midias objectAtIndex:indexPath.row];
+    
+    [cell.nome setText: data.title];
+    [cell.tipo setText: data.mediaType];
+    [cell.pais setText: data.country];
+    [cell.duracao setText: [NSString stringWithFormat:@"preco: %@", data.price]];
+    return cell;
+    
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,12 +122,52 @@
 }
 
 
+#pragma mark - implementações extras
 
 - (IBAction)searchButton:(id)sender {
-    tipoMidia = [[self textField]text];
-    NSLog(@"texto; %@", [[self textField]text]);
-    midias = [itunes buscarMidias:tipoMidia];
+    termo = [[self textField]text];
+    NSLog(@"texto: %@", [[self textField]text]);
+    //midias = [itunes buscarMidias:termo];
+    midias = [itunes buscarMidias:termo midia: @"all"];
     [_tableview reloadData];
     
+
 }
+
+-(IBAction)segControlClicked:(id)sender
+{
+    if (_segControl.selectedSegmentIndex == 0)
+    {
+        
+        termo =[[self textField]text];
+        midias = [itunes buscarMidias:termo midia:@"all"];
+        [_tableview reloadData];
+    }
+    
+    else
+    if( _segControl.selectedSegmentIndex == 1)
+    {
+            
+        tipoMidia = @"song";
+        termo =[[self textField]text];
+        midias = [itunes buscarMidias:termo midia:tipoMidia];
+        [_tableview reloadData];
+    }
+    else
+    if(_segControl.selectedSegmentIndex == 2)
+    {
+        termo =[[self textField]text];
+        midias = [itunes buscarMidias:termo midia:@"movies"];
+        [_tableview reloadData];
+    }
+    else
+    if (_segControl.selectedSegmentIndex == 3)
+    {
+        
+        termo =[[self textField]text];
+        midias = [itunes buscarMidias:termo midia:@"ebook"];
+        [_tableview reloadData];
+    }
+}
+
 @end

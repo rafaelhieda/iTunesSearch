@@ -18,4 +18,6 @@
 
 - (NSArray *)buscarMidias:(NSString *)termo;
 
+- (NSArray *)buscarMidias:(NSString *)termo midia:(NSString *) midia;
+
 @end
