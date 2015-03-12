@@ -14,10 +14,23 @@
  * gets singleton object.
  * @return singleton
  */
+
+@property NSMutableArray *podcastArray;
+
+@property NSMutableArray *musicArray;
+
+@property NSMutableArray *movieArray;
+
+@property NSMutableArray *ebookArray;
+
+@property NSMutableArray *dataArray;
+
 + (iTunesManager*)sharedInstance;
 
 - (NSArray *)buscarMidias:(NSString *)termo;
 
-- (NSArray *)buscarMidias:(NSString *)termo midia:(NSString *) midia;
+-(NSDictionary *)results:(NSString *)termo;
+
+-(NSDictionary *)results:(NSString *)termo media:(NSString *)media;
 
 @end

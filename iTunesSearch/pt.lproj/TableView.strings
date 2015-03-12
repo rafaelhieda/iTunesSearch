@@ -1,6 +1,6 @@
 
-/* Class = "UISegmentedControl"; Kj1-gZ-MYa.segmentTitles[0] = "All"; ObjectID = "Kj1-gZ-MYa"; */
-"Kj1-gZ-MYa.segmentTitles[0]" = "Tudo";
+/* Class = "UISegmentedControl"; Kj1-gZ-MYa.segmentTitles[0] = "Podcast"; ObjectID = "Kj1-gZ-MYa"; */
+"Kj1-gZ-MYa.segmentTitles[0]" = "Podcast";
 
 /* Class = "UISegmentedControl"; Kj1-gZ-MYa.segmentTitles[1] = "Music"; ObjectID = "Kj1-gZ-MYa"; */
 "Kj1-gZ-MYa.segmentTitles[1]" = "Musica";

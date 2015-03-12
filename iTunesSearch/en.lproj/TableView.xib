@@ -45,7 +45,7 @@
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kj1-gZ-MYa">
                     <rect key="frame" x="-61" y="-14" width="123" height="29"/>
                     <segments>
-                        <segment title="All"/>
+                        <segment title="Podcast"/>
                         <segment title="Music"/>
                         <segment title="Movie"/>
                         <segment title="E-Book"/>

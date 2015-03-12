@@ -33,13 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     termo = @"Apple";
-    tipoMidia = @"all";
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
-     NSLog(@" %@ %@", termo, tipoMidia);
+     NSLog(@" %@", termo);
     itunes = [iTunesManager sharedInstance];
-    //midias = [itunes buscarMidias:@"Apple"];
-    midias = [itunes buscarMidias:termo midia:tipoMidia];
+    
+    midias = [itunes buscarMidias:termo];
    
     
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
@@ -106,7 +105,7 @@
     [cell.nome setText: data.title];
     [cell.tipo setText: data.mediaType];
     [cell.pais setText: data.country];
-    [cell.duracao setText: [NSString stringWithFormat:@"preco: %@", data.price]];
+    [cell.duracao setText: [NSString stringWithFormat:@" %@: %@", data.currency,  data.price]];
     return cell;
     
     
@@ -126,9 +125,9 @@
 
 - (IBAction)searchButton:(id)sender {
     termo = [[self textField]text];
+    NSString *urlTerm = [termo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSLog(@"texto: %@", [[self textField]text]);
-    //midias = [itunes buscarMidias:termo];
-    midias = [itunes buscarMidias:termo midia: @"all"];
+    midias = [itunes buscarMidias:urlTerm];
     [_tableview reloadData];
     
 
@@ -140,24 +139,23 @@
     {
         
         termo =[[self textField]text];
-        midias = [itunes buscarMidias:termo midia:@"all"];
+        midias = [itunes podcastArray];
         [_tableview reloadData];
     }
     
     else
     if( _segControl.selectedSegmentIndex == 1)
     {
-            
-        tipoMidia = @"song";
+        
         termo =[[self textField]text];
-        midias = [itunes buscarMidias:termo midia:tipoMidia];
+        midias = [itunes musicArray];
         [_tableview reloadData];
     }
     else
     if(_segControl.selectedSegmentIndex == 2)
     {
         termo =[[self textField]text];
-        midias = [itunes buscarMidias:termo midia:@"movies"];
+        midias = [itunes movieArray];
         [_tableview reloadData];
     }
     else
@@ -165,7 +163,7 @@
     {
         
         termo =[[self textField]text];
-        midias = [itunes buscarMidias:termo midia:@"ebook"];
+        midias = [itunes ebookArray];
         [_tableview reloadData];
     }
 }
