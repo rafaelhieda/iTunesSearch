@@ -17,8 +17,8 @@
     NSString *termo;
     NSString *tipoMidia;
     iTunesManager *itunes;
+    NSString *mediaType;
 
-    
 }
 
 
@@ -33,13 +33,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     termo = @"Apple";
+    mediaType = @"all";
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
      NSLog(@" %@", termo);
     itunes = [iTunesManager sharedInstance];
-    
     midias = [itunes buscarMidias:termo];
-   
+    
+    
     
 #warning Necessario para que a table view tenha um espaco em relacao ao topo, pois caso contrario o texto ficara atras da barra superior
   //self.tableview.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 20.0f, self.tableview.bounds.size.width, 60.0f)];
@@ -73,12 +74,30 @@
 
 #pragma mark - Metodos do UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+
+    return [midias count] ;
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [midias count];
+    
+    return [[midias objectAtIndex:section]count];
+        }
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+       if(section == 0)
+           return @"podcast";
+       else if (section ==1)
+           return @"music";
+       else if (section == 2)
+           return @"movies";
+       else if (section ==3)
+           return @"ebook";
+       else
+           return @"all";
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -98,16 +117,21 @@
 //     
     
     //Minha implementação
-    TableViewCell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
+        TableViewCell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-    Data *data = [midias objectAtIndex:indexPath.row];
+        Data *data = [[midias objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
     
-    [cell.nome setText: data.title];
-    [cell.tipo setText: data.mediaType];
-    [cell.pais setText: data.country];
-    [cell.duracao setText: [NSString stringWithFormat:@" %@: %@", data.currency,  data.price]];
+        //uma flag que controla o conteudo selecionado na segment control
+    
+    
+        NSLog(@"\n\n nome: %@", data.name);
+        [cell.nome setText: data.title];
+        [cell.tipo setText: data.mediaType];
+        [cell.pais setText: data.country];
+        [cell.duracao setText: [NSString stringWithFormat:@" %@: %@", data.currency,  data.price]];
+    
+    
     return cell;
-    
     
 }
 
@@ -137,10 +161,9 @@
 {
     if (_segControl.selectedSegmentIndex == 0)
     {
-        
         termo =[[self textField]text];
-        midias = [itunes podcastArray];
         [_tableview reloadData];
+        
     }
     
     else
@@ -148,24 +171,26 @@
     {
         
         termo =[[self textField]text];
-        midias = [itunes musicArray];
         [_tableview reloadData];
+        
     }
     else
     if(_segControl.selectedSegmentIndex == 2)
     {
         termo =[[self textField]text];
-        midias = [itunes movieArray];
         [_tableview reloadData];
+        
     }
     else
     if (_segControl.selectedSegmentIndex == 3)
     {
-        
+
         termo =[[self textField]text];
-        midias = [itunes ebookArray];
         [_tableview reloadData];
+        
     }
 }
+
+
 
 @end

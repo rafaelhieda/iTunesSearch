@@ -112,9 +112,9 @@ static bool isFirstAccess = YES;
     
     //um bloco que trata especificamente do caso do ebook que não está incluído em "all"
     
-    NSArray *resultadosPodcast = [[self results: termo media:@"ebook"]objectForKey:@"results"];
+    NSArray *resultadosEbook = [[self results: termo media:@"ebook"]objectForKey:@"results"];
     
-    for(NSDictionary *item in resultadosPodcast)
+    for(NSDictionary *item in resultadosEbook)
     {
         
         Data *data = [[Data alloc]init];
@@ -133,12 +133,11 @@ static bool isFirstAccess = YES;
             [ebookArray addObject:data];
     }
     
-    
-    NSLog(@"\n\n");
-        return dataArray;
+    NSArray *mediaArray = [NSArray arrayWithObjects:podcastArray,musicArray,movieArray,ebookArray, nil];
+    return mediaArray;
 }
 
-
+//metodo para gerar o dictionary com os dados parseados do json
 -(NSDictionary *)results:(NSString *)termo
 {
     if(!termo)
@@ -149,7 +148,6 @@ static bool isFirstAccess = YES;
     NSData *jsonData = [NSData dataWithContentsOfURL: [NSURL URLWithString:url]];
     
     NSError *error;
-    NSLog(@"erro parse resultado");
     NSDictionary *resultado = [NSJSONSerialization JSONObjectWithData:jsonData
                                                               options:NSJSONReadingMutableContainers
                                                                 error:&error];

@@ -18,6 +18,5 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segControl;
 - (IBAction) segControlClicked:(id)sender;
-
 @end
 
