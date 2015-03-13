@@ -11,6 +11,7 @@
 #import "iTunesManager.h"
 #import "Entidades/Filme.h"
 #import "Data.h"
+#import "DetailViewController.h"
 
 @interface TableViewController () {
     NSArray *midias;
@@ -36,9 +37,18 @@
     mediaType = @"all";
     UINib *nib = [UINib nibWithNibName:@"TableViewCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"celulaPadrao"];
-     NSLog(@" %@", termo);
+    NSLog(@" %@", termo);
+    
+    
+    
+//    UINavigationItem *editButton = [[UINavigationItem alloc]initWithTitle:@"edit"];
+//    myBar.items = [NSArray arrayWithObject:editButton];
+//    myBar.topItem.leftBarButtonItem = myBar.items. ;
+//    
+
+    
     itunes = [iTunesManager sharedInstance];
-    midias = [itunes buscarMidias:termo];
+    //midias = [itunes buscarMidias:termo];
     
     
     
@@ -74,25 +84,25 @@
 
 #pragma mark - Metodos do UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return [midias count] ;
+    
+    return 1 ;
     
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return [[midias objectAtIndex:section]count];
+    return [[midias objectAtIndex:_segControl.selectedSegmentIndex]count];
         }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-       if(section == 0)
+       if(_segControl.selectedSegmentIndex == 0)
            return @"podcast";
-       else if (section ==1)
+       else if (_segControl.selectedSegmentIndex ==1)
            return @"music";
-       else if (section == 2)
+       else if (_segControl.selectedSegmentIndex == 2)
            return @"movies";
-       else if (section ==3)
+       else if (_segControl.selectedSegmentIndex ==3)
            return @"ebook";
        else
            return @"all";
@@ -119,9 +129,8 @@
     //Minha implementação
         TableViewCell *cell = [self.tableview dequeueReusableCellWithIdentifier:@"celulaPadrao"];
     
-        Data *data = [[midias objectAtIndex:indexPath.section]objectAtIndex:indexPath.row];
+        Data *data = [[midias objectAtIndex:_segControl.selectedSegmentIndex]objectAtIndex:indexPath.row];
     
-        //uma flag que controla o conteudo selecionado na segment control
     
     
         NSLog(@"\n\n nome: %@", data.name);
@@ -144,6 +153,22 @@
     [_textField resignFirstResponder];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DetailViewController *detailViewController = [[DetailViewController alloc]initWithNibName:@"DetailViewController" bundle:nil];
+    
+    
+   
+    
+    Data *data = [[Data alloc]init];
+    data = [[midias objectAtIndex:_segControl.selectedSegmentIndex]objectAtIndex:indexPath.row];
+    
+    [detailViewController setTitle:[data title]];
+    [detailViewController setData:data];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+
 
 #pragma mark - implementações extras
 
@@ -161,7 +186,6 @@
 {
     if (_segControl.selectedSegmentIndex == 0)
     {
-        termo =[[self textField]text];
         [_tableview reloadData];
         
     }
@@ -170,22 +194,18 @@
     if( _segControl.selectedSegmentIndex == 1)
     {
         
-        termo =[[self textField]text];
         [_tableview reloadData];
         
     }
     else
     if(_segControl.selectedSegmentIndex == 2)
     {
-        termo =[[self textField]text];
         [_tableview reloadData];
         
     }
     else
     if (_segControl.selectedSegmentIndex == 3)
     {
-
-        termo =[[self textField]text];
         [_tableview reloadData];
         
     }
