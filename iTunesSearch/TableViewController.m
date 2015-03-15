@@ -41,10 +41,6 @@
     
     
     
-//    UINavigationItem *editButton = [[UINavigationItem alloc]initWithTitle:@"edit"];
-//    myBar.items = [NSArray arrayWithObject:editButton];
-//    myBar.topItem.leftBarButtonItem = myBar.items. ;
-//    
 
     
     itunes = [iTunesManager sharedInstance];
@@ -163,6 +159,7 @@
     Data *data = [[Data alloc]init];
     data = [[midias objectAtIndex:_segControl.selectedSegmentIndex]objectAtIndex:indexPath.row];
     
+    
     [detailViewController setTitle:[data title]];
     [detailViewController setData:data];
     [self.navigationController pushViewController:detailViewController animated:YES];
@@ -174,13 +171,38 @@
 
 - (IBAction)searchButton:(id)sender {
     termo = [[self textField]text];
-    NSString *urlTerm = [termo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    
+    NSRange range = NSMakeRange(0, termo.length);
+    NSRegularExpression *regex = [self regularExpressionWithString:termo];
+    NSString *newTermo = [regex stringByReplacingMatchesInString:termo options:NO range:range withTemplate:termo];
+    
+    NSString *urlTerm = [newTermo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     NSLog(@"texto: %@", [[self textField]text]);
+    NSLog(@"texto: %@", newTermo);
+//    NSString *urlTerm = [termo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+//    NSLog(@"texto: %@", termo);
+ 
     midias = [itunes buscarMidias:urlTerm];
     [_tableview reloadData];
     
 
 }
+
+-(NSRegularExpression *)regularExpressionWithString:(NSString *)string
+{
+    NSError *error = NULL;
+    NSString *placeHolder = @"[a-zA-Z0-9]* [a-zA-Z0-9]* [a-zA-Z0-9]*";
+    NSString *pattern = [NSString stringWithFormat:placeHolder,string];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NO error:&error];
+    if(error)
+    {
+        NSLog(@"Não foi possivel criar uma expressão regular dada a string utilizada");
+    }
+    return regex;
+}
+
+
+
 
 -(IBAction)segControlClicked:(id)sender
 {
